@@ -1,14 +1,16 @@
 from datetime import datetime
 from decimal import Decimal
-import pytz
+
 import pytest
+import pytz
+
 from poker.card import Card
+from poker.constants import Action, Currency, Game, GameType, Limit
 from poker.hand import Combo
-from poker.constants import Game, Currency, Limit, GameType, Action
 from poker.handhistory import _Player, _PlayerAction
 from poker.room.fulltiltpoker import FullTiltPokerHandHistory, _Street
-from . import ftp_hands
 
+from . import ftp_hands
 
 ET = pytz.timezone("US/Eastern")
 
@@ -31,23 +33,6 @@ def hand(request):
     hh = FullTiltPokerHandHistory(request.instance.hand_text)
     hh.parse()
     return hh
-
-
-@pytest.fixture
-def flop(scope="module"):
-    return _Street(
-        [
-            "[8h 4h Tc] (Total Pot: 230, 2 Players)",
-            "JohnyyR checks",
-            "FatalRevange has 15 seconds left to act",
-            "FatalRevange bets 120",
-            "JohnyyR folds",
-            "Uncalled bet of 120 returned to FatalRevange",
-            "FatalRevange mucks",
-            "FatalRevange wins the pot (230)",
-        ],
-        0,
-    )
 
 
 class TestHandWithFlopOnly:

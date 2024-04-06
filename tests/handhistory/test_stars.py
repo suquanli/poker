@@ -1,14 +1,16 @@
-from decimal import Decimal
 from datetime import datetime
-import pytz
+from decimal import Decimal
+
 import pytest
+import pytz
+
 from poker.card import Card
+from poker.constants import Action, Currency, Game, GameType, Limit, MoneyType
 from poker.hand import Combo
-from poker.constants import Currency, GameType, Game, Limit, Action, MoneyType
 from poker.handhistory import _Player, _PlayerAction
 from poker.room.pokerstars import PokerStarsHandHistory, _Street
-from . import stars_hands
 
+from . import stars_hands
 
 ET = pytz.timezone("US/Eastern")
 
@@ -33,27 +35,12 @@ def hand_header(request):
     return hh
 
 
-@pytest.fixture(scope="module")
-def flop():
-    return _Street(
-        [
-            "[2s 6d 6h]",
-            "W2lkm2n: bets 80",
-            "MISTRPerfect: folds",
-            "Uncalled bet (80) returned to W2lkm2n",
-            "W2lkm2n collected 150 from pot",
-            "W2lkm2n: doesn't show hand",
-        ],
-        0,
-    )
-
-
 def test_open_from_file(testdir):
     bbb_path = str(testdir.joinpath("handhistory/bbb.txt"))
     hh = PokerStarsHandHistory.from_file(bbb_path)
     hh.parse()
     assert hh.ident == "138364355489"
-    assert type(hh.raw) is str
+    assert isinstance(hh.raw, str)
 
 
 class TestHandHeaderNoLimitHoldemTourFreeroll:

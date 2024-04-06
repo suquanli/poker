@@ -1,28 +1,25 @@
-import pkg_resources
-
-__version__ = pkg_resources.get_distribution(__name__).version
-del pkg_resources
-
+# ruff: noqa: F401
 
 from poker._common import PokerEnum
-from poker.card import Suit, Rank, Card, FACE_RANKS, BROADWAY_RANKS
-from poker.hand import (
-    Shape,
-    Hand,
-    Combo,
-    Range,
-    PAIR_HANDS,
-    OFFSUIT_HANDS,
-    SUITED_HANDS,
-)
+from poker.card import BROADWAY_RANKS, FACE_RANKS, Card, Rank, Suit
 from poker.constants import (
-    PokerRoom,
+    Action,
     Currency,
     Game,
     GameType,
     Limit,
     MoneyType,
-    Action,
+    PokerRoom,
     Position,
+)
+from poker.deck import Deck
+from poker.hand import (
+    OFFSUIT_HANDS,
+    PAIR_HANDS,
+    SUITED_HANDS,
+    Combo,
+    Hand,
+    Range,
+    Shape,
 )
 from poker.strategy import Strategy
